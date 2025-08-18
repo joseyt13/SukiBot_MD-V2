@@ -1,5 +1,5 @@
 console.clear()
-console.log('🗣️ Iniciando Michi Suki Bot...')
+console.log('🗣️ Iniciando Suki Bot...')
 
 import { join, dirname } from 'path'
 import { createRequire } from 'module'
