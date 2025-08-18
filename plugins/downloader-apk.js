@@ -1,82 +1,87 @@
-/**
- * Comando: .apk
- * Autor: Ado-rgb
- * Repositorio: github.com/Ado-rgb
- * 🚫 No quitar créditos
- */
-
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, usedPrefix, command, text }) => {
+const handler = async (m, { conn, usedPrefix, command, text}) => {
   if (!text) {
     return conn.sendMessage(m.chat, {
-      text: `⚡ Ingresa el nombre de la aplicación que quieres buscar.\n\n📌 Ejemplo:\n${usedPrefix + command} Facebook Lite`
-    }, { quoted: m })
-  }
+      text: `🧊 *ElsaBot-MD* te ayuda a descargar APKs desde Aptoide.\n\n📌 *Ejemplo de uso:*\n${usedPrefix + command} Facebook Lite`,
+}, { quoted: m})
+}
 
   try {
-    // reacción al iniciar búsqueda
-    await conn.sendMessage(m.chat, { react: { text: "🔍", key: m.key } })
+    // 🔍 Reacción de búsqueda
+    await conn.sendMessage(m.chat, { react: { text: "🔍", key: m.key}})
 
-    let results = await aptoide.search(text)
+    const results = await aptoide.search(text)
     if (!results.length) {
-      return conn.sendMessage(m.chat, { text: "⚠️ No se encontraron resultados para tu búsqueda. Intenta con un nombre diferente." }, { quoted: m })
-    }
+      return conn.sendMessage(m.chat, {
+        text: `⚠️ No se encontraron resultados para *${text}*.\nIntenta con otro nombre o revisa la ortografía.`,
+}, { quoted: m})
+}
 
-    let app = results[0]
-    let data = await aptoide.download(app.id)
-    let dl = await conn.getFile(data.link)
+    const app = results[0]
+    const data = await aptoide.download(app.id)
+    const dl = await conn.getFile(data.link)
+
+    const caption = `
+📲 *APK Descargado con éxito*
+
+🧊 *Nombre:* ${data.appname}
+👨‍💻 *Desarrollador:* ${data.developer}
+📦 *Versión:* ${app.version}
+📊 *Tamaño:* ${(app.size / (1024 * 1024)).toFixed(2)} MB
+`.trim()
 
     await conn.sendMessage(m.chat, {
       document: dl.data,
       fileName: `${data.appname}.apk`,
       mimetype: 'application/vnd.android.package-archive',
-      caption: `✅ *APK Descargado*\n\n📱 *Nombre:* ${data.appname}\n👨‍💻 *Desarrollador:* ${data.developer}\n📦 *Versión:* ${app.version}\n📊 *Tamaño:* ${(app.size / (1024 * 1024)).toFixed(2)} MB`
-    }, { quoted: m })
+      caption,
+}, { quoted: m})
 
-    // reacción al terminar
-    await conn.sendMessage(m.chat, { react: { text: "✅", key: m.key } })
+    // ✅ Reacción final
+    await conn.sendMessage(m.chat, { react: { text: "✅", key: m.key}})
 
-  } catch (e) {
-    console.error(e)
-    conn.sendMessage(m.chat, { text: "❌ Ocurrió un error al descargar el APK. Intenta de nuevo más tarde." }, { quoted: m })
-    await conn.sendMessage(m.chat, { react: { text: "❌", key: m.key } })
-  }
+} catch (e) {
+    console.error('❌ Error al descargar APK:', e)
+    await conn.sendMessage(m.chat, {
+      text: `❌ *Ocurrió un error al procesar tu solicitud.*\nEs posible que la app no esté disponible o que haya un problema con la API.`,
+}, { quoted: m})
+    await conn.sendMessage(m.chat, { react: { text: "❌", key: m.key}})
+}
 }
 
-handler.help = ["apk"]
-handler.tags = ["downloader"]
-handler.command = /^apk$/i
+handler.help = ['apk <nombre>']
+handler.tags = ['downloader']
+handler.command = ['apk'];
 handler.register = false
-
 export default handler
 
+// 🔧 Módulo Aptoide
 const aptoide = {
-  search: async function (query) {
-    let res = await fetch(`https://ws75.aptoide.com/api/7/apps/search?query=${encodeURIComponent(query)}&limit=1`)
-    res = await res.json()
-    if (!res.datalist?.list?.length) return []
+  search: async (query) => {
+    const res = await fetch(`https://ws75.aptoide.com/api/7/apps/search?query=${encodeURIComponent(query)}&limit=1`)
+    const json = await res.json()
+    const list = json.datalist?.list || []
+    return list.map(app => ({
+      name: app.name,
+      size: app.size,
+      version: app.file?.vername || 'N/A',
+      id: app.package,
+      download: app.stats?.downloads || 0,
+}))
+},
 
-    return res.datalist.list.map((v) => ({
-      name: v.name,
-      size: v.size,
-      version: v.file?.vername || "N/A",
-      id: v.package,
-      download: v.stats?.downloads || 0
-    }))
-  },
+  download: async (id) => {
+    const res = await fetch(`https://ws75.aptoide.com/api/7/apps/search?query=${encodeURIComponent(id)}&limit=1`)
+    const json = await res.json()
+    const app = json.datalist?.list?.[0]
+    if (!app) throw new Error('App no encontrada')
 
-  download: async function (id) {
-    let res = await fetch(`https://ws75.aptoide.com/api/7/apps/search?query=${encodeURIComponent(id)}&limit=1`)
-    res = await res.json()
-    if (!res.datalist?.list?.length) throw new Error("App no encontrada")
-
-    const app = res.datalist.list[0]
     return {
       img: app.icon,
-      developer: app.store?.name || "Desconocido",
+      developer: app.store?.name || 'Desconocido',
       appname: app.name,
-      link: app.file?.path
-    }
-  }
+      link: app.file?.path,
+}
+}
 }
