@@ -1,45 +1,47 @@
 import ws from 'ws'
 
-let handler = async (m, { conn }) => {
-  let uniqueUsers = new Map()
+const handler = async (m, { conn}) => {
+  const uniqueUsers = new Map()
 
-  if (!global.conns || !Array.isArray(global.conns)) global.conns = []
+  if (!global.conns ||!Array.isArray(global.conns)) global.conns = []
 
   for (const connSub of global.conns) {
-    if (connSub.user && connSub.ws?.socket?.readyState !== ws.CLOSED) {
+    if (connSub.user && connSub.ws?.socket?.readyState!== ws.CLOSED) {
       const jid = connSub.user.jid
       const numero = jid?.split('@')[0]
       let nombre = connSub.user.name
       if (!nombre && typeof conn.getName === 'function') {
         try {
           nombre = await conn.getName(jid)
-        } catch {
+} catch {
           nombre = `Usuario ${numero}`
-        }
-      }
+}
+}
       uniqueUsers.set(jid, nombre || `Usuario ${numero}`)
-    }
-  }
+}
+}
 
   const uptime = process.uptime() * 1000
   const formatUptime = clockString(uptime)
   const totalUsers = uniqueUsers.size
 
-  let txt = `🌟 *SUBS ACTIVOS* 🌟\n\n`
-  txt += `⏳ *Tiempo Activo:* ${formatUptime}\n`
-  txt += `👥 *Total Conectados:* ${totalUsers}\n`
+  let txt = `
+❄️ *ElsaBot-MD | SubBots Activos* ❄️
 
-  if (totalUsers > 0) {
-    txt += `\n📋 *LISTA DE SUBS*\n\n`
+⏱️ *Tiempo activo:* ${formatUptime}
+👥 *SubBots conectados:* ${totalUsers}
+`.trim()
+
+  if (totalUsers> 0) {
+    txt += `\n\n📋 *Lista de SubBots:*\n`
     let i = 1
     for (const [jid, nombre] of uniqueUsers) {
       const numero = jid.split('@')[0]
-      txt += `💎 *${i++}.* ${nombre}\n`
-      txt += `🔗 https://wa.me/${numero}\n\n`
-    }
-  } else {
-    txt += `\n⚠️ *No hay subbots conectados actualmente.*`
-  }
+      txt += `\n${i++}. 💠 *${nombre}*\n🔗 https://wa.me/${numero}`
+}
+} else {
+    txt += `\n\n⚠️ *No hay SubBots conectados actualmente.*`
+}
 
   await conn.reply(m.chat, txt.trim(), m, global.rcanal)
 }
