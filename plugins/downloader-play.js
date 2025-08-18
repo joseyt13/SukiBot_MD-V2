@@ -74,7 +74,7 @@ const handler = async (m, { conn, text}) => {
 }, { quoted: m});
 };
 
-handler.help= ['play'];
+handler.help = ['play'];
 handler.command = ["play"];
 handler.register = false;
 export default handler;
