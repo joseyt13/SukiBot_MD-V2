@@ -1,7 +1,7 @@
 {
   "name": "Suki-Bot",
   "version": "1.0.0",
-  "description": "Michi Multi Device",
+  "description": "Whatsapp Multi Device",
   "main": "index.js",
   "type": "module",
   "directories": {
