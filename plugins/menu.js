@@ -1,5 +1,3 @@
-import fs from 'fs'
-import { join} from 'path'
 import { xpRange} from '../lib/levelling.js'
 
 // 🎯 Categorías del menú
@@ -62,7 +60,6 @@ const handler = async (m, { conn, usedPrefix: _p}) => {
 
     const nombreBot = 'ElsaBot-MD'
     const bannerFinal = 'https://files.catbox.moe/woeor8.jpg'
-
     const tipo = conn.user.jid === global.conn.user.jid? '𝗣𝗿𝗶𝗻𝗰𝗶𝗽𝗮𝗹 🆅': '𝗦𝘂𝗯𝗕𝗼𝘁 🅱'
     const menuConfig = conn.menu || defaultMenu
 
@@ -106,7 +103,7 @@ const handler = async (m, { conn, usedPrefix: _p}) => {
       (_, name) => String(replace[name])
 )
 
-    const imageContent = { image: fs.readFileSync(bannerFinal)}
+    const imageContent = { image: { url: bannerFinal}}
 
     await conn.sendMessage(
       m.chat,
@@ -128,7 +125,6 @@ const handler = async (m, { conn, usedPrefix: _p}) => {
 
 handler.command = ['menu', 'help', 'hélp', 'menú', 'ayuda']
 handler.register = false
-
 export default handler
 
 // 🔧 Utilidades
