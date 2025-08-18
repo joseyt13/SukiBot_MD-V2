@@ -18,28 +18,31 @@ let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
 let rtx = `
-🎋 𝗩𝗶𝗻𝗰𝘂𝗹𝗮𝗰𝗶𝗼́𝗻 𝗽𝗼𝗿 𝗖𝗼́𝗱𝗶𝗴𝗼 𝗤𝗥
+❄️ 𝗘𝗹𝘀𝗮𝗕𝗼𝘁-𝗠𝗗 | 𝗩𝗶𝗻𝗰𝘂𝗹𝗮𝗰𝗶𝗼́𝗻 𝗽𝗼𝗿 𝗖𝗼́𝗱𝗶𝗴𝗼 𝗤𝗥
 
-📌 𝗣𝗮𝘀𝗼𝘀 𝗽𝗮𝗿𝗮 𝘃𝗶𝗻𝗰𝘂𝗹𝗮𝗿 𝘁𝘂 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽:
-1️⃣ Abre 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 en tu teléfono  
-2️⃣ Pulsa ⋮ *Más opciones* → *Dispositivos vinculados*  
-3️⃣ Presiona *"Vincular un dispositivo"*  
+📌 *Pasos para vincular tu WhatsApp:*
+1️⃣ Abre la app de *WhatsApp* en tu teléfono
+2️⃣ Pulsa ⋮ *Más opciones* → *Dispositivos vinculados*
+3️⃣ Presiona *"Vincular un dispositivo"*
 4️⃣ Escanea el código QR que se mostrará aquí
+
+🧊 ¡Y listo! Tu sesión estará conectada al bot.
 `.trim()
-
 let rtx2 = `
-🍁 𝗩𝗶𝗻𝗰𝘂𝗹𝗮𝗰𝗶𝗼́𝗻 𝗽𝗼𝗿 𝗖𝗼́𝗱𝗶𝗴𝗼 𝗠𝗮𝗻𝘂𝗮𝗹 (8 dígitos)
+🍁 𝗘𝗹𝘀𝗮𝗕𝗼𝘁-𝗠𝗗 | 𝗩𝗶𝗻𝗰𝘂𝗹𝗮𝗰𝗶𝗼́𝗻 𝗺𝗮𝗻𝘂𝗮𝗹 𝗰𝗼𝗻 𝗰𝗼́𝗱𝗶𝗴𝗼 (8 dígitos)
 
-📌 𝗣𝗮𝘀𝗼𝘀 𝗽𝗮𝗿𝗮 𝗵𝗮𝗰𝗲𝗿𝗹𝗼:
-1️⃣ Abre 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 en tu teléfono  
-2️⃣ Pulsa ⋮ *Más opciones* → *Dispositivos vinculados*  
-3️⃣ Presiona *"Vincular un dispositivo"*  
-4️⃣ Selecciona *"Con número"* e introduce el código mostrado  
+📌 *Pasos para vincular manualmente:*
+1️⃣ Abre la app de *WhatsApp* en tu teléfono
+2️⃣ Pulsa ⋮ *Más opciones* → *Dispositivos vinculados*
+3️⃣ Presiona *"Vincular un dispositivo"*
+4️⃣ Selecciona *"Con número"* e introduce el código mostrado
 
-⚠️ 𝗜𝗺𝗽𝗼𝗿𝘁𝗮𝗻𝘁𝗲:  
-- Algunos grupos pueden fallar al generar el código  
-- Recomendado: Solicítalo por privado al bot  
-⏳ El código es válido solo para este número y expira en pocos segundos.
+⚠️ *Importante:*
+- Algunos grupos pueden fallar al generar el código
+- Recomendado: Solicítalo por privado al bot
+⏳ El código es válido solo para este número y expira en segundos.
+
+🧊 Si tienes dudas, ElsaBot está aquí para ayudarte.
 `.trim()
 
 const __filename = fileURLToPath(import.meta.url)
