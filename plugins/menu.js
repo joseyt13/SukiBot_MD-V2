@@ -61,7 +61,7 @@ const handler = async (m, { conn, usedPrefix: _p}) => {
 }))
 
     const nombreBot = 'ElsaBot-MD'
-    const bannerFinal = './storage/img/imagen.jpg'
+    const bannerFinal = 'https://files.catbox.moe/woeor8.jpg'
 
     const tipo = conn.user.jid === global.conn.user.jid? '𝗣𝗿𝗶𝗻𝗰𝗶𝗽𝗮𝗹 🆅': '𝗦𝘂𝗯𝗕𝗼𝘁 🅱'
     const menuConfig = conn.menu || defaultMenu
